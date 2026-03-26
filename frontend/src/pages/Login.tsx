@@ -25,23 +25,34 @@ export default function Login({ onLogin }: LoginProps) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="page-container">
+      <div className="card">
+        <h1>ClientFlow</h1>
+        <p className="subtitle">Inicia sesión para ver tus clientes y proyectos</p>
 
-      <input
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            placeholder="nico2@test.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-      <input
-        placeholder="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <div className="form-group">
+          <label>Contraseña</label>
+          <input
+            placeholder="••••••"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-      <button onClick={handleLogin}>Login</button>
+        <button className="btn" onClick={handleLogin}>
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }

@@ -46,45 +46,53 @@ export default function Dashboard() {
   }, []);
 
   if (loading) {
-    return <h2>Cargando...</h2>;
+    return <div className="loading">Cargando dashboard...</div>;
   }
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
-      <h1>ClientFlow Dashboard</h1>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h1>ClientFlow Dashboard</h1>
+        <p>Resumen simple de clientes y proyectos.</p>
+      </div>
 
-      <section style={{ marginTop: '2rem' }}>
-        <h2>Clientes</h2>
-        {clients.length === 0 ? (
-          <p>No hay clientes</p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {clients.map((client) => (
-              <li key={client.id} style={{ marginBottom: '0.75rem' }}>
-                <strong>{client.name}</strong>
-                {client.company ? ` - ${client.company}` : ''}
-                {client.email ? ` - ${client.email}` : ''}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      <div className="grid">
+        <section className="panel">
+          <h2>Clientes</h2>
+          {clients.length === 0 ? (
+            <p className="muted">No hay clientes registrados.</p>
+          ) : (
+            <ul className="clean-list">
+              {clients.map((client) => (
+                <li key={client.id}>
+                  <strong>{client.name}</strong>
+                  {client.company && <span className="badge">{client.company}</span>}
+                  <div className="muted">{client.email || 'Sin correo'}</div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
 
-      <section style={{ marginTop: '2rem' }}>
-        <h2>Proyectos</h2>
-        {projects.length === 0 ? (
-          <p>No hay proyectos</p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {projects.map((project) => (
-              <li key={project.id} style={{ marginBottom: '0.75rem' }}>
-                <strong>{project.name}</strong> - {project.status}
-                {project.client ? ` - Cliente: ${project.client.name}` : ''}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+        <section className="panel">
+          <h2>Proyectos</h2>
+          {projects.length === 0 ? (
+            <p className="muted">No hay proyectos registrados.</p>
+          ) : (
+            <ul className="clean-list">
+              {projects.map((project) => (
+                <li key={project.id}>
+                  <strong>{project.name}</strong>
+                  <span className="badge">{project.status}</span>
+                  <div className="muted">
+                    Cliente: {project.client?.name || 'Sin cliente'}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
     </div>
   );
 }
